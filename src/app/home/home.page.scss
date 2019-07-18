@@ -1,3 +1,21 @@
 ion-button{
     float: right;
 }
+
+ion-footer{
+    
+
+    label{
+       margin: 10px;
+       font-size: 12px;
+    }
+
+    ul{
+        list-style: none;
+        padding: 0%;
+    }
+
+    .lastSavedItem{
+        font-size: 15px;
+    }
+}
