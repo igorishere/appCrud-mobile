@@ -1,0 +1,19 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-title>Novo Item</ion-title>
+    <ion-icon slot="end" name="close-circle" (click)="dismiss()"></ion-icon>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content >
+    <form>
+      <div class="ion-text-start">
+          <ion-text>Nome do item:</ion-text>
+      </div>
+      <ion-item>
+          <ion-input required type="text" ></ion-input>
+      </ion-item>
+
+      <ion-button expand="block">Salvar</ion-button>
+    </form>
+</ion-content>
