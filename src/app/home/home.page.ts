@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ModalPage } from '../modal/modal.page';
+import { DbServiceService } from '../services/db-service.service';
+import { Observable } from 'rxjs';
+
+
 
 @Component({
   selector: 'app-home',
@@ -8,10 +12,20 @@ import { ModalPage } from '../modal/modal.page';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-  constructor( private modalController: ModalController) {}
+
+  private storedItems: Observable<any[]>;
+
+  constructor(
+    // builder for modal
+    private modalController: ModalController,
+
+    // Database 
+    private db: DbServiceService
+    ) {
+      this.storedItems = this.db.read();
+    }
 
   async showModalNewItem(){
-    console.log("teste");
     const modal = await this.modalController.create({
       component: ModalPage
     });

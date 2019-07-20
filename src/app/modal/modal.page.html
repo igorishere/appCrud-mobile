@@ -11,9 +11,9 @@
           <ion-text>Nome do item:</ion-text>
       </div>
       <ion-item>
-          <ion-input required type="text" ></ion-input>
+          <ion-input required type="text" #nome></ion-input>
       </ion-item>
 
-      <ion-button expand="block">Salvar</ion-button>
+      <ion-button expand="block" (click)="saveNewItem()">Salvar</ion-button>
     </form>
 </ion-content>

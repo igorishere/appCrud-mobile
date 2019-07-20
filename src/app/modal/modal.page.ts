@@ -21,4 +21,10 @@ export class ModalPage implements OnInit {
     });
   }
 
+
+
+  saveNewItem(name: string) {
+    alert(name);
+  }
+
 }
