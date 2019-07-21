@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { ModalController, AlertController, ToastController } from '@ionic/angular';
-import { ModalPage } from '../modal/modal.page';
 import { DbServiceService } from '../services/db-service.service';
 import { Observable } from 'rxjs';
 
@@ -31,13 +30,6 @@ export class HomePage {
       // list of all saved items
       this.storedItems = this.db.read();
     }
-
-  async showModalNewItem(){
-    const modal = await this.modalController.create({
-      component: ModalPage
-    });
-    return await modal.present();
-  }
 
   deleteItem(item: string, id: string){
 
@@ -158,6 +150,61 @@ export class HomePage {
         alert.present();
       }
     )
+  }
+
+  createNewItem(){
+    this.alert.create({
+      header: 'Novo item',
+      message: 'Insira um nome para o novo item',
+      backdropDismiss: true,
+      inputs: [
+        {
+          name: 'newItem',
+          placeholder: 'Nome'
+        }
+      ],
+      buttons: [
+        {
+          text: "Salvar",
+          handler: (data)=>{
+            let newItem = data.newItem;
+
+            if (newItem){
+              this.db.create(newItem);
+              this.toast.create({
+                color: "primary",
+                message: "Salvo com sucesso",
+                duration: 2000,
+              }).then(
+                (toast) => {
+                  toast.present();
+                }
+              )
+            }else{
+              this.toast.create({
+                color: "danger",
+                message: "Campo vazio, insira alguma informação para salvar o item",
+                duration: 2000
+              }).then(
+                (toast)=>{
+                  toast.present();
+                }
+              )
+            }
+            
+          }
+        },
+        {
+          text: "Cancelar",
+          role: "cancel"
+        }
+      ]
+    }).then(
+      (alert)=>{
+        alert.present();
+      }
+      )
+    
   }
 
 }
