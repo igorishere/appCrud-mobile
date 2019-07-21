@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
+import { DbServiceService } from '../services/db-service.service';
+import { Observable, empty } from 'rxjs';
 
 @Component({
   selector: 'app-modal',
@@ -8,7 +10,13 @@ import { ModalController } from '@ionic/angular';
 })
 export class ModalPage implements OnInit {
 
-  constructor(private modalController: ModalController) { }
+  private newItem: string;
+
+  constructor(
+    private modalController: ModalController,
+    private db: DbServiceService,
+    private toast: ToastController
+    ) { }
 
   ngOnInit() {
   }
@@ -20,11 +28,34 @@ export class ModalPage implements OnInit {
       'dismissed': true
     });
   }
+  
+  saveNewItem() {
+    if( this.newItem  ){
+      //saving new item
+      this.db.create(this.newItem);
 
-
-
-  saveNewItem(name: string) {
-    alert(name);
+      // toast with 'Saved' messaged
+      this.toast.create({
+        message:'salvo!',
+        duration: 2000
+      }).then(
+        toast=>{
+          toast.present();
+        }
+      )
+      // reseting the item
+      this.newItem = "";
+      // Closing the modal
+      this.dismiss();
+    }else{
+      this.toast.create({
+        message: 'Campo vazio, insira um valor',
+        duration: 2000
+      }).then(
+        toast => {
+          toast.present();
+        }
+      )
+    }
   }
-
 }

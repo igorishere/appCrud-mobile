@@ -11,7 +11,7 @@
           <ion-text>Nome do item:</ion-text>
       </div>
       <ion-item>
-          <ion-input required type="text" #nome></ion-input>
+          <ion-input required type="text" [(ngModel)]="newItem" name="newItem"></ion-input>
       </ion-item>
 
       <ion-button expand="block" (click)="saveNewItem()">Salvar</ion-button>

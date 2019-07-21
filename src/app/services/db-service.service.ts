@@ -23,10 +23,13 @@ export class DbServiceService implements CRUD{
     return itemCollection.snapshotChanges();
   }
   update(idItem: any, editedName: any) {
-    throw new Error("Method not implemented.");
+    this.firebase.doc(`Items/${ idItem }`).update({
+      name: editedName,
+      modified: Date.now()
+    })
   }
   delete(idItem: string) {
-    throw new Error("Method not implemented.");
+    this.firebase.doc(`Items/${idItem}`).delete();
   }
   
 }
