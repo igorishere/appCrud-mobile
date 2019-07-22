@@ -24,12 +24,34 @@ export class HomePage {
     private alert: AlertController,
 
     //Toast
-    private toast: ToastController
+    private toastController: ToastController
     ) {
 
       // list of all saved items
       this.storedItems = this.db.read();
     }
+
+  toastMessege(
+    // Message to toast
+    message: string,
+    // class with color for toast
+    color: string,
+    // view time 
+    duration: number){
+
+    const toast = this.toastController.create({
+      color: `${color}`,
+      message: `${message}`,
+      duration: duration,
+      position: "middle"
+    }).then(
+      toast=>{
+        toast.present()
+      }
+    )
+
+    return toast;
+  }
 
   deleteItem(item: string, id: string){
 
@@ -56,25 +78,10 @@ export class HomePage {
               this.db.delete(id);
 
               // Feedback for user
-              this.toast.create({
-                color: "primary",
-                message: 'Excluído com sucesso',
-                duration: 1000
-              }).then(
-                toast => {
-                  toast.present()
-                }
-              )
+            this.toastMessege("Excluído com sucesso","primary",2000);
+
             } else {
-              this.toast.create({
-                color: "warning",
-                message: 'Nome incorreto, digite novamente',
-                duration: 1000
-              }).then(
-                toast=>{
-                  toast.present()
-                }
-              )
+              this.toastMessege("Nome incorreto, digite novamente","danger",2000)
             }
 
           }
@@ -116,27 +123,12 @@ export class HomePage {
             this.db.update(id,newItemName);
 
             //sucess feedback
-            this.toast.create({
-              color: "primary",
-              duration: 2000,
-              message: 'Alterações salvas'
-            }).then(
-              (toast) => {
-                toast.present();
-              }
-            )
+            this.toastMessege("Alterações salvas","primary",2000);
+
           }else{
 
             // Message if the field was empty
-            this.toast.create({
-            color: "danger",
-            duration: 2000,
-            message: 'Campo vazio, nada para alterar'
-            }).then(
-              (toast)=>{
-                toast.present();
-              }
-            )
+            this.toastMessege("Campo vazio, nada para alterar","danger",2000);
           }  
         }
       },
@@ -171,25 +163,10 @@ export class HomePage {
 
             if (newItem){
               this.db.create(newItem);
-              this.toast.create({
-                color: "primary",
-                message: "Salvo com sucesso",
-                duration: 2000,
-              }).then(
-                (toast) => {
-                  toast.present();
-                }
-              )
+              this.toastMessege("Salvo com sucesso","primary",2000);
+
             }else{
-              this.toast.create({
-                color: "danger",
-                message: "Campo vazio, insira alguma informação para salvar o item",
-                duration: 2000
-              }).then(
-                (toast)=>{
-                  toast.present();
-                }
-              )
+              this.toastMessege("Campo vazio, insira alguma informação para salvar o item","danger",2000);
             }
             
           }
