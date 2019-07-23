@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { ModalController, AlertController, ToastController } from '@ionic/angular';
 import { DbServiceService } from '../services/db-service.service';
 import { Observable } from 'rxjs';
+import { item } from '../classe/item';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 
 @Component({
@@ -12,7 +14,7 @@ import { Observable } from 'rxjs';
 export class HomePage {
 
   private storedItems: Observable<any[]>;
-
+  private lastStoredItem: Observable<item>;
   constructor(
     // builder for modal
     private modalController: ModalController,
@@ -24,11 +26,15 @@ export class HomePage {
     private alert: AlertController,
 
     //Toast
-    private toastController: ToastController
+    private toastController: ToastController,
+
+    private firestore: AngularFirestore
     ) {
 
       // list of all saved items
       this.storedItems = this.db.read();
+      this.lastStoredItem = this.db.getLastSavedItem();
+     
     }
 
   toastMessege(

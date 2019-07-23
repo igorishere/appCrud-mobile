@@ -42,7 +42,7 @@
 
   <!-- Floating action button -->
   <ion-fab vertical="bottom" horizontal="end" slot="fixed" color="danger">
-      <!-- <ion-fab-button (click)="createNewItem()"> -->
+
       <ion-fab-button (click)="createNewItem()">
         <ion-icon name="add"></ion-icon>
       </ion-fab-button>
@@ -52,9 +52,9 @@
   <ion-toolbar color="primary">
     <label>Último item adicionado:</label>
     <br/>
-    <label class="lastSavedItem">Nome: Liquinho</label>
+    <label class="lastSavedItem">Nome: {{ (lastStoredItem | async)?.itemName }}</label>
     <br />
-    <label class="lastSavedItem">ID: #u6j8j3j2kk</label>
+    <label class="lastSavedItem">ID: #{{ (lastStoredItem | async)?.itemId }}</label>
     <br />
   </ion-toolbar>
 </ion-footer>
